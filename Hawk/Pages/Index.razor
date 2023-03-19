@@ -1,0 +1,25 @@
+﻿@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject NavigationManager navigationManager
+@page "/"
+@using Hawk.Models;
+
+
+<div class="login-loader">
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</div>
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var userData = await localStorage.GetItemAsync<UserInfo>("player");
+        if (userData is null)
+        {
+            navigationManager.NavigateTo("login");
+        }
+        else
+        {
+            navigationManager.NavigateTo("home");
+        }
+    }
+}

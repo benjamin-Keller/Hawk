@@ -1,0 +1,20 @@
+﻿@using Hawk.Models;
+@using System.Text.RegularExpressions;
+@using System.ComponentModel.DataAnnotations;
+@using Hawk.Services;
+@page "/login"
+
+<h3>Login</h3>
+
+<MudPaper Class="pa-4">
+    <MudForm >
+        <MudCardContent>
+            <MudTextField For="@(() => FormModel.Username)" @bind-Value="@FormModel.Username" Label="Username" />
+            <MudTextField For="@(() => FormModel.Password)" @bind-Value="@FormModel.Password" Label="Password" InputType="InputType.Password" />
+            <MudSwitch For="@(() => FormModel.RememberMe)" @bind-Value="@FormModel.RememberMe" Label="Remember me?" />
+        </MudCardContent>
+        <div class="d-flex align-center justify-space-between">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@SubmitFormAsync">Login</MudButton>
+        </div>
+    </MudForm>
+</MudPaper>
