@@ -1,6 +1,6 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
-    <MudNavLink Href="/store" Match="NavLinkMatch.Prefix">Store</MudNavLink>
+    <MudNavLink Disabled="@Disable" Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
+    <MudNavLink Disabled="@Disable" Href="/store" Match="NavLinkMatch.Prefix">Store</MudNavLink>
     @*<MudNavGroup Title="Settings" Expanded="true">
         <MudNavLink Href="/users"  Match="NavLinkMatch.Prefix">Users</MudNavLink>
         <MudNavLink Href="/security"  Match="NavLinkMatch.Prefix">Security</MudNavLink>
@@ -8,6 +8,8 @@
 </MudNavMenu>
 
 @code {
+    [Parameter]
+    public bool Disable { get; set; }
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;

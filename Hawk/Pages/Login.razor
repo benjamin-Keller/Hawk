@@ -4,17 +4,35 @@
 @using Hawk.Services;
 @page "/login"
 
-<h3>Login</h3>
-
 <MudPaper Class="pa-4">
-    <MudForm >
+    <h1>Login</h1>
+    <sub>Please sign into your Riot account</sub>
+    <MudForm>
         <MudCardContent>
             <MudTextField For="@(() => FormModel.Username)" @bind-Value="@FormModel.Username" Label="Username" />
             <MudTextField For="@(() => FormModel.Password)" @bind-Value="@FormModel.Password" Label="Password" InputType="InputType.Password" />
             <MudSwitch For="@(() => FormModel.RememberMe)" @bind-Value="@FormModel.RememberMe" Label="Remember me?" />
         </MudCardContent>
         <div class="d-flex align-center justify-space-between">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@SubmitFormAsync">Login</MudButton>
+            <MudButton Disabled="@Loading" OnClick="@SubmitFormAsync" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">
+                @if (Loading)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                    <MudText Class="ms-2">Logging in</MudText>
+                }
+                else
+                {
+                    <MudText>Login</MudText>
+                }
+            </MudButton>
         </div>
     </MudForm>
 </MudPaper>
+
+@*TODO change to global Snackbar*@
+<MudPopover Open="@ShowPopover" Fixed="true" Class="px-4 pt-4" AnchorOrigin="Origin.TopRight" TransformOrigin="Origin.TopRight" Duration="5">
+    <div class="d-flex flex-column">
+        <MudText>@ErrorMessage</MudText>
+        <MudButton OnClick="@ToggleOpen" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
+    </div>
+</MudPopover>

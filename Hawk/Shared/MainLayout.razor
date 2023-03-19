@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <MudThemeProvider IsDarkMode="true" />
 <MudDialogProvider />
@@ -9,8 +10,8 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         My Application
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen">
-        <NavMenu />
+    <MudDrawer @bind-Open="@_drawerOpen" >
+        <NavMenu Disable="@(!_signedIn)" />
     </MudDrawer>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.False">
@@ -20,10 +21,17 @@
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
+    bool _drawerOpen = false;
+    bool _signedIn = false;
 
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+            _signedIn = await localStorage.GetItemAsync<bool>("session__signed_in");
     }
 }

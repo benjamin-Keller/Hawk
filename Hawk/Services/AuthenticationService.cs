@@ -15,6 +15,9 @@ public class AuthenticationService
     public async Task<UserInfo> AuthenticateAsync(User user)
     {
         var (loginResponse, cookieCollection, accessToken) = await _authHandler.SignInAsync(user);
+
+        if (loginResponse.Contains("auth_failure"))
+            throw new Exception("Something went wrong.");
         var entitlementToken = await _authHandler.GetEntitlementAsync(accessToken, cookieCollection);
 
         var userInfo = new UserInfo();
