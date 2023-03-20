@@ -28,11 +28,3 @@
         </div>
     </MudForm>
 </MudPaper>
-
-@*TODO change to global Snackbar*@
-<MudPopover Open="@ShowPopover" Fixed="true" Class="px-4 pt-4" AnchorOrigin="Origin.TopRight" TransformOrigin="Origin.TopRight" Duration="5">
-    <div class="d-flex flex-column">
-        <MudText>@ErrorMessage</MudText>
-        <MudButton OnClick="@ToggleOpen" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Close</MudButton>
-    </div>
-</MudPopover>
